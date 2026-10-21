@@ -255,8 +255,15 @@ let pgPool = null;
 let useFallback = false;
 
 // mysql2-compatible result shaping so controllers stay unchanged.
+// Controllers use `?` placeholders; Postgres needs $1..$n — convert on the fly.
+const toPgPlaceholders = (sql, params) => {
+  if (!params || params.length === 0 || !sql.includes("?")) return sql;
+  let i = 0;
+  return sql.replace(/\?/g, () => `$${++i}`);
+};
+
 const runQuery = async (executor, sql, params = []) => {
-  const result = await executor.query(sql, params);
+  const result = await executor.query(toPgPlaceholders(sql, params), params);
 
   if (/^\s*insert into/i.test(sql) && result.rows.length > 0 && "id" in result.rows[0]) {
     return [[{ insertId: result.rows[0].id, affectedRows: result.rowCount }]];
