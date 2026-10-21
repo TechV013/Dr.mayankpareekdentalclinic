@@ -266,11 +266,11 @@ const runQuery = async (executor, sql, params = []) => {
   const result = await executor.query(toPgPlaceholders(sql, params), params);
 
   if (/^\s*insert into/i.test(sql) && result.rows.length > 0 && "id" in result.rows[0]) {
-    return [[{ insertId: result.rows[0].id, affectedRows: result.rowCount }]];
+    return [{ insertId: result.rows[0].id, affectedRows: result.rowCount }];
   }
 
   if (/^\s*(update|delete)/i.test(sql)) {
-    return [[{ affectedRows: result.rowCount }]];
+    return [{ affectedRows: result.rowCount }];
   }
 
   return [result.rows];
