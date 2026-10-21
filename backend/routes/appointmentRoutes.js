@@ -1,12 +1,12 @@
-const express = require("express");
-const requireAdminAuth = require("../middleware/authMiddleware");
+import express from "express";
+import requireAdminAuth from "../middleware/authMiddleware.js";
 
-const {
+import {
   createAppointment,
   getAppointments,
   confirmAppointment,
   rejectAppointment,
-} = require("../controllers/appointmentController");
+} from "../controllers/appointmentController.js";
 
 const router = express.Router();
 
@@ -27,4 +27,4 @@ router.put("/:id/confirm", requireAdminAuth, confirmAppointment);
 router.put("/:id/reject", requireAdminAuth, rejectAppointment);
 
 
-module.exports = router;
+export default router;

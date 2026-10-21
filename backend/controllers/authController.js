@@ -1,5 +1,5 @@
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 
 const loginAdmin = async (req, res) => {
   try {
@@ -87,7 +87,7 @@ const getCurrentAdmin = (req, res) => {
   });
 };
 
-module.exports = {
+export {
   loginAdmin,
   getCurrentAdmin,
 };

@@ -1,11 +1,11 @@
-const express = require("express");
+import express from "express";
 
-const {
+import {
   loginAdmin,
   getCurrentAdmin,
-} = require("../controllers/authController");
+} from "../controllers/authController.js";
 
-const requireAdminAuth = require("../middleware/authMiddleware");
+import requireAdminAuth from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -29,4 +29,4 @@ router.get(
   getCurrentAdmin
 );
 
-module.exports = router;
+export default router;

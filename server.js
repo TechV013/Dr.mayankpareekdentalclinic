@@ -1,11 +1,15 @@
-const express = require("express");
-const cors = require("cors");
-const path = require("path");
-require("dotenv").config();
+import express from "express";
+import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
+import "dotenv/config";
 
-const pool = require("./backend/config/db");
-const appointmentRoutes = require("./backend/routes/appointmentRoutes");
-const authRoutes = require("./backend/routes/authRoutes");
+import pool from "./backend/config/db.js";
+import appointmentRoutes from "./backend/routes/appointmentRoutes.js";
+import authRoutes from "./backend/routes/authRoutes.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -40,7 +44,7 @@ app.get("/api/test-db", async (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/appointments", appointmentRoutes);
 
-// Serve frontend static files in production
+// Serve frontend static files in production (self-hosted / local)
 const distPath = path.join(__dirname, "dist");
 app.use(express.static(distPath));
 
@@ -59,6 +63,12 @@ app.use((error, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// On Vercel the app is exported as a serverless function (see api/index.js);
+// listen() is only for local / traditional hosting.
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+export default app;

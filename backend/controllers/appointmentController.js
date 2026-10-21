@@ -1,4 +1,4 @@
-const pool = require("../config/db");
+import pool from "../config/db.js";
 
 /* =========================================================
    HELPERS
@@ -433,7 +433,7 @@ const rejectAppointment = async (req, res) => {
    EXPORT
 ========================================================= */
 
-module.exports = {
+export {
   createAppointment,
   getAppointments,
   confirmAppointment,
