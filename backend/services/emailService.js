@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import { waitUntil } from "@vercel/functions";
 import "dotenv/config";
 import {
   greetingTemplate,
@@ -6,6 +7,20 @@ import {
   rejectionTemplate,
   adminNotificationTemplate,
 } from "./emailTemplates.js";
+
+/* =========================================================
+   Background dispatch — Vercel freezes functions after the
+   response, so pending SMTP sends must be registered with
+   waitUntil to actually complete. No-op-safe locally.
+========================================================= */
+
+export const background = (promise) => {
+  try {
+    waitUntil(promise);
+  } catch {
+    // Non-Vercel runtime: the process stays alive on its own.
+  }
+};
 
 /* =========================================================
    SMTP config (Gmail App Password works out of the box)

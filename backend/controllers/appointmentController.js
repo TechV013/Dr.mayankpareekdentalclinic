@@ -1,5 +1,6 @@
 import pool from "../config/db.js";
 import {
+  background,
   sendGreetingEmail,
   sendConfirmationEmail,
   sendRejectionEmail,
@@ -164,21 +165,25 @@ const createAppointment = async (req, res) => {
       status: "PENDING",
     };
 
-    sendGreetingEmail({
-      to: normalizedEmail,
-      name: String(fullName).trim(),
-      appointment: emailAppointment,
-    });
-
-    sendAdminBookingNotification({
-      appointment: {
+    background(
+      sendGreetingEmail({
+        to: normalizedEmail,
         name: String(fullName).trim(),
-        phone: normalizedPhone,
-        email: normalizedEmail,
-        ...emailAppointment,
-        message: message ? String(message).trim() : "",
-      },
-    });
+        appointment: emailAppointment,
+      })
+    );
+
+    background(
+      sendAdminBookingNotification({
+        appointment: {
+          name: String(fullName).trim(),
+          phone: normalizedPhone,
+          email: normalizedEmail,
+          ...emailAppointment,
+          message: message ? String(message).trim() : "",
+        },
+      })
+    );
 
     /* -------------------------
        RESPONSE
@@ -358,11 +363,13 @@ const confirmAppointment = async (req, res) => {
 
     await connection.commit();
 
-    sendConfirmationEmail({
-      to: appointment.email,
-      name: appointment.full_name,
-      appointment: toEmailAppointment(appointment),
-    });
+    background(
+      sendConfirmationEmail({
+        to: appointment.email,
+        name: appointment.full_name,
+        appointment: toEmailAppointment(appointment),
+      })
+    );
 
     return res.status(200).json({
       success: true,
@@ -454,11 +461,13 @@ const rejectAppointment = async (req, res) => {
 
     await connection.commit();
 
-    sendRejectionEmail({
-      to: appointment.email,
-      name: appointment.full_name,
-      appointment: toEmailAppointment(appointment),
-    });
+    background(
+      sendRejectionEmail({
+        to: appointment.email,
+        name: appointment.full_name,
+        appointment: toEmailAppointment(appointment),
+      })
+    );
 
     return res.status(200).json({
       success: true,
