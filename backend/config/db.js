@@ -285,45 +285,61 @@ const SCHEMA_SQL = `
   );
 `;
 
-const pgReady = (async () => {
-  const dbUrl = (
-    process.env.DATABASE_URL ||
-    process.env.POSTGRES_URL ||
-    process.env.NEON_DATABASE_URL ||
-    process.env.POSTGRES_PRISMA_URL ||
-    ""
-  ).trim();
+const PG_RETRY_MS = 60_000;
+let lastPgAttempt = 0;
+let pgInitPromise = null;
 
-  if (!dbUrl) {
-    useFallback = true;
-    return;
-  }
+const pgUrl = (
+  process.env.DATABASE_URL ||
+  process.env.POSTGRES_URL ||
+  process.env.NEON_DATABASE_URL ||
+  process.env.POSTGRES_PRISMA_URL ||
+  ""
+).trim();
 
-  try {
-    const sslMode = (dbUrl.match(/sslmode=([^&]+)/) || [])[1];
-    const ssl =
-      sslMode === "disable" ? false : { rejectUnauthorized: false };
+// Lazy + retryable: Neon free-tier computes suspend, so the first connect may
+// time out. Retry on later requests instead of falling back forever.
+const ensurePg = async () => {
+  if (pgPool) return pgPool;
+  if (!pgUrl) return null;
 
-    pgPool = new Pool({
-      connectionString: dbUrl,
-      ssl,
-      max: 5,
-      connectionTimeoutMillis: 8000,
-      idleTimeoutMillis: 10000,
-    });
+  const now = Date.now();
+  if (pgInitPromise) return pgInitPromise;
+  if (lastPgAttempt && now - lastPgAttempt < PG_RETRY_MS) return null;
 
-    await pgPool.query("SELECT 1");
-    await pgPool.query(SCHEMA_SQL);
-    console.log("Connected to Neon/Postgres database.");
-  } catch (error) {
-    console.warn(
-      "Postgres connection not available. Using fallback storage (KV/JSON).",
-      error.message
-    );
-    useFallback = true;
-    pgPool = null;
-  }
-})();
+  lastPgAttempt = now;
+  pgInitPromise = (async () => {
+    try {
+      const sslMode = (pgUrl.match(/sslmode=([^&]+)/) || [])[1];
+      const ssl = sslMode === "disable" ? false : { rejectUnauthorized: false };
+
+      const pool = new Pool({
+        connectionString: pgUrl,
+        ssl,
+        max: 5,
+        connectionTimeoutMillis: 15000,
+        idleTimeoutMillis: 10000,
+      });
+
+      await pool.query("SELECT 1");
+      await pool.query(SCHEMA_SQL);
+      pgPool = pool;
+      useFallback = false;
+      console.log("Connected to Neon/Postgres database.");
+      return pgPool;
+    } catch (error) {
+      console.warn(
+        "Postgres connection not available. Using fallback storage (KV/JSON).",
+        error.message
+      );
+      return null;
+    } finally {
+      pgInitPromise = null;
+    }
+  })();
+
+  return pgInitPromise;
+};
 
 // ---------------------------------------------------------
 // Unified pool interface (used by all controllers)
@@ -341,24 +357,32 @@ const fallbackConnection = () => ({
 
 const proxyPool = {
   async query(sql, params) {
-    await pgReady;
-    if (useFallback || !pgPool) {
+    const pool = await ensurePg();
+    if (!pool) {
+      useFallback = true;
       return executeJsonQuery(sql, params);
     }
     try {
-      return await runQuery(pgPool, sql, params);
-    } catch {
+      return await runQuery(pool, sql, params);
+    } catch (error) {
+      // Transient DB failure: drop the pool and retry init next request.
+      console.warn("Postgres query failed, using fallback for now.", error.message);
+      try {
+        await pool.end();
+      } catch {}
+      pgPool = null;
       useFallback = true;
       return executeJsonQuery(sql, params);
     }
   },
   async getConnection() {
-    await pgReady;
-    if (useFallback || !pgPool) {
+    const pool = await ensurePg();
+    if (!pool) {
+      useFallback = true;
       return fallbackConnection();
     }
     try {
-      const client = await pgPool.connect();
+      const client = await pool.connect();
       return {
         async beginTransaction() {
           await client.query("BEGIN");
@@ -376,7 +400,9 @@ const proxyPool = {
           return runQuery(client, sql, params);
         },
       };
-    } catch {
+    } catch (error) {
+      console.warn("Postgres client checkout failed, using fallback for now.", error.message);
+      pgPool = null;
       useFallback = true;
       return fallbackConnection();
     }
