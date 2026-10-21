@@ -66,18 +66,18 @@ const fallbackImage =
   "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1200&q=85";
 
 const serviceImages = [
-  "/service-images/service-01.png",
-  "/service-images/service-02.png",
-  "/service-images/service-03.png",
-  "/service-images/service-04.png",
-  "/service-images/service-05.png",
-  "/service-images/service-06.png",
-  "/service-images/service-07.png",
-  "/service-images/service-08.png",
-  "/service-images/service-09.png",
-  "/service-images/service-10.png",
-  "/service-images/service-11.png",
-  "/service-images/service-12.png",
+  "/service-images/service-01.webp",
+  "/service-images/service-02.webp",
+  "/service-images/service-03.webp",
+  "/service-images/service-04.webp",
+  "/service-images/service-05.webp",
+  "/service-images/service-06.webp",
+  "/service-images/service-07.webp",
+  "/service-images/service-08.webp",
+  "/service-images/service-09.webp",
+  "/service-images/service-10.webp",
+  "/service-images/service-11.webp",
+  "/service-images/service-12.webp",
 ];
 
 
