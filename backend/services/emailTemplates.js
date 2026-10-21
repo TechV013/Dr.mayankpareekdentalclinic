@@ -23,11 +23,13 @@ const shell = (inner, siteUrl) => {
 
           <!-- Header -->
           <tr>
-            <td style="background:#0f6668;padding:22px 28px;">
-              <p style="margin:0;color:#ffffff;font-size:20px;font-weight:bold;letter-spacing:0.5px;">
-                Shree Shyam Dental Care
-              </p>
-              <p style="margin:6px 0 0;color:#cfe9e7;font-size:12px;text-transform:uppercase;letter-spacing:2px;">
+            <td style="background:#ffffff;padding:20px 28px 12px;border-bottom:1px solid #e5eeee;">
+              <img src="${url}/logo.png" alt="Shree Shyam Dental Care" width="200" style="display:block;height:auto;max-width:200px;" />
+            </td>
+          </tr>
+          <tr>
+            <td style="background:#0f6668;padding:12px 28px;">
+              <p style="margin:0;color:#cfe9e7;font-size:12px;text-transform:uppercase;letter-spacing:2px;">
                 Dr. Mayank Pareek &bull; BDS
               </p>
             </td>

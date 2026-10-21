@@ -305,14 +305,22 @@ function AdminDashboard({
     <div className="min-h-screen bg-[#f4faf9] text-[#173235]">
       <header className="sticky top-0 z-40 border-b border-[#dfeceb] bg-white/95 shadow-sm backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#0f6668]">
-              Shree Shyam Dental Care
-            </p>
+          <div className="flex items-center gap-3">
+            <img
+              src="/logo.png"
+              alt="Shree Shyam Dental Care"
+              className="h-9 w-auto object-contain"
+            />
 
-            <h1 className="mt-1 text-xl font-extrabold tracking-tight sm:text-2xl">
-              Admin Appointment Dashboard
-            </h1>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#0f6668]">
+                Shree Shyam Dental Care
+              </p>
+
+              <h1 className="mt-1 text-xl font-extrabold tracking-tight sm:text-2xl">
+                Admin Appointment Dashboard
+              </h1>
+            </div>
           </div>
 
           <div className="flex items-center gap-2">

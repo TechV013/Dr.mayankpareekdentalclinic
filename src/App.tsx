@@ -278,27 +278,13 @@ function App() {
               <a
                 href="#home"
                 onClick={closeMobileMenu}
-                className="flex items-center gap-3"
+                className="flex items-center"
               >
-                <div className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-[#0f6668] text-white shadow-[0_8px_20px_rgba(15,102,104,0.22)]">
-
-                  <Stethoscope size={21} strokeWidth={1.8} />
-
-                  <span className="absolute -bottom-1 -right-1 h-3.5 w-3.5 rounded-full border-2 border-white bg-[#c39a43]" />
-
-                </div>
-
-                <div className="leading-none">
-
-                  <p className="text-sm font-bold text-[#173235] sm:text-[15px]">
-                    {siteData.clinic.name}
-                  </p>
-
-                  <p className="mt-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-[#0f6668]">
-                    Dental Care
-                  </p>
-
-                </div>
+                <img
+                  src="/logo.png"
+                  alt="Shree Shyam Dental Care"
+                  className="h-10 w-auto object-contain sm:h-11"
+                />
               </a>
 
               <nav className="hidden items-center gap-7 lg:flex">

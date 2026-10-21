@@ -6,7 +6,6 @@ import {
   LockKeyhole,
   Mail,
   ShieldCheck,
-  Stethoscope,
 } from "lucide-react";
 
 interface AdminLoginProps {
@@ -89,13 +88,12 @@ function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
       <div className="mx-auto flex min-h-[calc(100vh-5rem)] max-w-md items-center justify-center">
         <div className="w-full rounded-[2rem] border border-[#dfeceb] bg-white p-7 shadow-[0_25px_70px_rgba(20,70,70,0.10)] sm:p-9">
 
-          {/* Logo Icon */}
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#0f6668] text-white shadow-lg">
-            <Stethoscope
-              size={30}
-              strokeWidth={1.7}
-            />
-          </div>
+          {/* Logo */}
+          <img
+            src="/logo.png"
+            alt="Shree Shyam Dental Care"
+            className="mx-auto h-12 w-auto object-contain"
+          />
 
           {/* Heading */}
           <div className="mt-6 text-center">
