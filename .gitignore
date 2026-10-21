@@ -30,3 +30,6 @@ backend/.env.*
 !backend/.env.example
 backend/data/
 backend/node_modules/
+
+.vercel
+.env*
