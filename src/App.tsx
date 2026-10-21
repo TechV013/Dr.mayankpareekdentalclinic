@@ -283,7 +283,7 @@ function App() {
                 <img
                   src="/logo.png"
                   alt="Shree Shyam Dental Care"
-                  className="h-10 w-auto object-contain sm:h-11"
+                  className="h-14 w-auto object-contain sm:h-16"
                 />
               </a>
 
