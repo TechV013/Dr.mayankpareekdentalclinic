@@ -2,15 +2,16 @@ export const siteData = {
   doctor: {
     name: "Dr. Mayank Pareek",
     qualification: "BDS",
+    institute: "Geetanjali Dental and Research Institute, Udaipur, Rajasthan",
     designation: "Dental Surgeon",
-    experience: "5 Years",
+    experience: "6+ Years",
     specialization: "General Dentistry",
 
     shortIntro:
       "Providing personalized dental care with a focus on oral health, comfort, and confident smiles.",
 
     about:
-      "Dr. Mayank Pareek is a BDS Dental Surgeon with 5 years of professional experience. He is committed to providing patient-focused dental care in a comfortable and welcoming environment.",
+      "Dr. Mayank Pareek is a BDS Dental Surgeon with 6+ years of professional experience. He is committed to providing patient-focused dental care in a comfortable and welcoming environment.",
 
     image: "/images/doctor/dr-mayank-pareek.png",
   },
@@ -69,7 +70,7 @@ export const siteData = {
       "At Shree Shyam Dental Care, every patient deserves clear communication, comfortable care, and attention to their individual dental needs.",
 
     points: [
-      "5 years of professional experience",
+      "6+ years of professional experience",
       "BDS qualified Dental Surgeon",
       "Patient-focused dental consultation",
       "Personalized approach to dental care",
@@ -297,7 +298,7 @@ export const siteData = {
 
   whyUs: [
     {
-      title: "5 Years of Experience",
+      title: "6+ Years of Experience",
 
       description:
         "Professional dental experience with a patient-focused approach to dental care.",

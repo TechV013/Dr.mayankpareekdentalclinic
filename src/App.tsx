@@ -40,6 +40,7 @@ import { siteData } from "./data/siteData";
 import { apiFetch, readApiResponse } from "./api";
 import AdminLogin from "./components/AdminLogin";
 import AdminDashboard from "./components/AdminDashboard";
+import DoctorProfilePage from "./components/DoctorProfilePage";
 
 const iconMap: Record<string, ElementType> = {
   stethoscope: Stethoscope,
@@ -240,6 +241,10 @@ function App() {
       );
     }
   };
+
+  if (window.location.pathname === "/doctor") {
+    return <DoctorProfilePage />;
+  }
 
   if (window.location.pathname === "/admin") {
     if (!adminToken) {
@@ -446,46 +451,6 @@ function App() {
                 {siteData.hero.description}
               </p>
 
-              <div className="mt-8 flex flex-wrap gap-3">
-
-                <div className="flex items-center gap-3 rounded-2xl border border-[#d8e8e6] bg-white px-4 py-3 shadow-[0_8px_25px_rgba(20,70,70,0.05)]">
-
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#e8f4f2] text-[#0f6668]">
-                    <Award size={18} />
-                  </div>
-
-                  <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-wider text-[#8a9b9c]">
-                      Qualification
-                    </p>
-
-                    <p className="mt-0.5 text-sm font-bold text-[#294d4e]">
-                      {siteData.doctor.qualification}
-                    </p>
-                  </div>
-
-                </div>
-
-                <div className="flex items-center gap-3 rounded-2xl border border-[#d8e8e6] bg-white px-4 py-3 shadow-[0_8px_25px_rgba(20,70,70,0.05)]">
-
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#f4eddf] text-[#9b7932]">
-                    <Clock3 size={18} />
-                  </div>
-
-                  <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-wider text-[#8a9b9c]">
-                      Experience
-                    </p>
-
-                    <p className="mt-0.5 text-sm font-bold text-[#294d4e]">
-                      {siteData.doctor.experience}
-                    </p>
-                  </div>
-
-                </div>
-
-              </div>
-
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
 
                 <a
@@ -555,6 +520,31 @@ function App() {
                 </div>
 
               </div>
+
+              <a
+                href="/doctor"
+                className="group absolute -bottom-5 left-2 flex items-center gap-3 rounded-2xl border border-white bg-white/95 px-4 py-3 shadow-xl backdrop-blur transition duration-300 hover:-translate-y-1 hover:shadow-2xl sm:-left-5 sm:px-5 sm:py-3.5"
+              >
+
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#e8f4f2] text-[#0f6668]">
+                  <Award size={19} />
+                </div>
+
+                <div>
+                  <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#8a9b9c]">
+                    Dr. Mayank Pareek
+                  </p>
+
+                  <p className="mt-0.5 flex items-center gap-1.5 text-xs font-bold text-[#294d4e] sm:text-sm">
+                    Qualification &amp; Experience
+                    <ArrowRight
+                      size={14}
+                      className="transition-transform group-hover:translate-x-0.5"
+                    />
+                  </p>
+                </div>
+
+              </a>
 
             </div>
 
