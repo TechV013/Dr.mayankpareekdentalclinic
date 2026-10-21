@@ -1,18 +1,39 @@
-import mysql from "mysql2/promise";
+import pg from "pg";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import "dotenv/config";
+
+const { Pool, types } = pg;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 /* =========================================================
    Tiered storage:
-   1. MySQL        — when DB_HOST is configured and reachable
-   2. Upstash KV   — when Vercel KV env vars are present
+   1. Neon/Postgres — when DATABASE_URL is configured
+   2. Upstash KV    — when Vercel KV env vars are present
    3. JSON + memory — always works (never crashes)
 ========================================================= */
+
+// ---------------------------------------------------------
+// Postgres type parsers — keep the string shapes the app expects
+// ---------------------------------------------------------
+
+// int8 → number
+types.setTypeParser(20, (value) => (value === null ? null : Number(value)));
+// DATE → "YYYY-MM-DD" string (frontend formatDate relies on this)
+types.setTypeParser(1082, (value) => value);
+// TIMESTAMP → "YYYY-MM-DD HH:MM:SS" string
+types.setTypeParser(1114, (value) =>
+  value instanceof Date
+    ? value.toISOString().slice(0, 19).replace("T", " ")
+    : value
+);
+// TIMESTAMPTZ → ISO string
+types.setTypeParser(1184, (value) =>
+  value instanceof Date ? value.toISOString() : value
+);
 
 // ---------------------------------------------------------
 // JSON file + in-memory store
@@ -227,37 +248,80 @@ const executeJsonQuery = async (sql, params = []) => {
 };
 
 // ---------------------------------------------------------
-// MySQL pool (tier 1)
+// Neon / Postgres pool (tier 1)
 // ---------------------------------------------------------
 
-let activePool = null;
-let useJsonFallback = false;
+let pgPool = null;
+let useFallback = false;
 
-const mysqlReady = (async () => {
-  if (!process.env.DB_HOST) {
-    useJsonFallback = true;
+// mysql2-compatible result shaping so controllers stay unchanged.
+const runQuery = async (executor, sql, params = []) => {
+  const result = await executor.query(sql, params);
+
+  if (/^\s*insert into/i.test(sql) && result.rows.length > 0 && "id" in result.rows[0]) {
+    return [[{ insertId: result.rows[0].id, affectedRows: result.rowCount }]];
+  }
+
+  if (/^\s*(update|delete)/i.test(sql)) {
+    return [[{ affectedRows: result.rowCount }]];
+  }
+
+  return [result.rows];
+};
+
+const SCHEMA_SQL = `
+  CREATE TABLE IF NOT EXISTS appointments (
+    id SERIAL PRIMARY KEY,
+    full_name VARCHAR(255) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    appointment_date DATE NOT NULL,
+    appointment_time TIME NOT NULL,
+    dental_concern VARCHAR(255) NOT NULL,
+    message TEXT,
+    status VARCHAR(20) NOT NULL DEFAULT 'PENDING',
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    confirmed_at TIMESTAMP NULL
+  );
+`;
+
+const pgReady = (async () => {
+  const dbUrl = (
+    process.env.DATABASE_URL ||
+    process.env.POSTGRES_URL ||
+    process.env.NEON_DATABASE_URL ||
+    process.env.POSTGRES_PRISMA_URL ||
+    ""
+  ).trim();
+
+  if (!dbUrl) {
+    useFallback = true;
     return;
   }
+
   try {
-    const pool = mysql.createPool({
-      host: process.env.DB_HOST,
-      port: Number(process.env.DB_PORT) || 3306,
-      user: process.env.DB_USER || "root",
-      password: process.env.DB_PASSWORD || "",
-      database: process.env.DB_NAME || "shree_shyam_dental",
-      waitForConnections: true,
-      connectionLimit: 5,
-      connectTimeout: 3000,
+    const sslMode = (dbUrl.match(/sslmode=([^&]+)/) || [])[1];
+    const ssl =
+      sslMode === "disable" ? false : { rejectUnauthorized: false };
+
+    pgPool = new Pool({
+      connectionString: dbUrl,
+      ssl,
+      max: 5,
+      connectionTimeoutMillis: 8000,
+      idleTimeoutMillis: 10000,
     });
 
-    await pool.query("SELECT 1");
-    activePool = pool;
-    console.log("Connected to MySQL database.");
-  } catch {
+    await pgPool.query("SELECT 1");
+    await pgPool.query(SCHEMA_SQL);
+    console.log("Connected to Neon/Postgres database.");
+  } catch (error) {
     console.warn(
-      "MySQL connection not available. Using fallback storage (KV/JSON)."
+      "Postgres connection not available. Using fallback storage (KV/JSON).",
+      error.message
     );
-    useJsonFallback = true;
+    useFallback = true;
+    pgPool = null;
   }
 })();
 
@@ -265,45 +329,56 @@ const mysqlReady = (async () => {
 // Unified pool interface (used by all controllers)
 // ---------------------------------------------------------
 
+const fallbackConnection = () => ({
+  async beginTransaction() {},
+  async commit() {},
+  async rollback() {},
+  release() {},
+  async query(sql, params) {
+    return executeJsonQuery(sql, params);
+  },
+});
+
 const proxyPool = {
   async query(sql, params) {
-    await mysqlReady;
-    if (useJsonFallback || !activePool) {
+    await pgReady;
+    if (useFallback || !pgPool) {
       return executeJsonQuery(sql, params);
     }
     try {
-      return await activePool.query(sql, params);
+      return await runQuery(pgPool, sql, params);
     } catch {
-      useJsonFallback = true;
+      useFallback = true;
       return executeJsonQuery(sql, params);
     }
   },
   async getConnection() {
-    await mysqlReady;
-    if (useJsonFallback || !activePool) {
-      return {
-        async beginTransaction() {},
-        async commit() {},
-        async rollback() {},
-        release() {},
-        async query(sql, params) {
-          return executeJsonQuery(sql, params);
-        },
-      };
+    await pgReady;
+    if (useFallback || !pgPool) {
+      return fallbackConnection();
     }
     try {
-      return await activePool.getConnection();
-    } catch {
-      useJsonFallback = true;
+      const client = await pgPool.connect();
       return {
-        async beginTransaction() {},
-        async commit() {},
-        async rollback() {},
-        release() {},
+        async beginTransaction() {
+          await client.query("BEGIN");
+        },
+        async commit() {
+          await client.query("COMMIT");
+        },
+        async rollback() {
+          await client.query("ROLLBACK");
+        },
+        release() {
+          client.release();
+        },
         async query(sql, params) {
-          return executeJsonQuery(sql, params);
+          return runQuery(client, sql, params);
         },
       };
+    } catch {
+      useFallback = true;
+      return fallbackConnection();
     }
   },
 };

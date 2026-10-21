@@ -7,6 +7,7 @@
     "dev": "concurrently -k \"node server.js\" \"vite\"",
     "build": "tsc -b && vite build",
     "start": "node server.js",
+    "test:email": "node backend/scripts/send-test-email.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -17,7 +18,8 @@
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.3",
     "lucide-react": "^1.50.0",
-    "mysql2": "^3.14.5",
+    "nodemailer": "^10.1.7",
+    "pg": "^8.23.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },

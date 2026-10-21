@@ -1,4 +1,10 @@
 import pool from "../config/db.js";
+import {
+  sendGreetingEmail,
+  sendConfirmationEmail,
+  sendRejectionEmail,
+  sendAdminBookingNotification,
+} from "../services/emailService.js";
 
 /* =========================================================
    HELPERS
@@ -23,6 +29,13 @@ const isValidIndianPhone = (phone) => {
 const isValidEmail = (email) => {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 };
+
+const toEmailAppointment = (row) => ({
+  date: String(row.appointment_date).slice(0, 10),
+  time: String(row.appointment_time).slice(0, 5),
+  concern: row.dental_concern,
+  status: row.status,
+});
 
 /* =========================================================
    CREATE APPOINTMENT
@@ -127,6 +140,7 @@ const createAppointment = async (req, res) => {
         status
       )
       VALUES (?, ?, ?, ?, ?, ?, ?, 'PENDING')
+      RETURNING id
       `,
       [
         String(fullName).trim(),
@@ -138,6 +152,33 @@ const createAppointment = async (req, res) => {
         message ? String(message).trim() : null,
       ]
     );
+
+    /* -------------------------
+       EMAILS (fire-and-forget)
+    ------------------------- */
+
+    const emailAppointment = {
+      date: String(appointmentDate).slice(0, 10),
+      time: String(appointmentTime).slice(0, 5),
+      concern: String(dentalConcern).trim(),
+      status: "PENDING",
+    };
+
+    sendGreetingEmail({
+      to: normalizedEmail,
+      name: String(fullName).trim(),
+      appointment: emailAppointment,
+    });
+
+    sendAdminBookingNotification({
+      appointment: {
+        name: String(fullName).trim(),
+        phone: normalizedPhone,
+        email: normalizedEmail,
+        ...emailAppointment,
+        message: message ? String(message).trim() : "",
+      },
+    });
 
     /* -------------------------
        RESPONSE
@@ -317,6 +358,12 @@ const confirmAppointment = async (req, res) => {
 
     await connection.commit();
 
+    sendConfirmationEmail({
+      to: appointment.email,
+      name: appointment.full_name,
+      appointment: toEmailAppointment(appointment),
+    });
+
     return res.status(200).json({
       success: true,
       message: "Appointment confirmed successfully.",
@@ -406,6 +453,12 @@ const rejectAppointment = async (req, res) => {
     );
 
     await connection.commit();
+
+    sendRejectionEmail({
+      to: appointment.email,
+      name: appointment.full_name,
+      appointment: toEmailAppointment(appointment),
+    });
 
     return res.status(200).json({
       success: true,

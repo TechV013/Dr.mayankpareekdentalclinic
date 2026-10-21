@@ -40,11 +40,21 @@ npm start               # serves frontend + API on http://localhost:5000
 1. Push this repo to GitHub and import it in Vercel (it appears as a **single project**).
 2. Set environment variables in Vercel → Settings → Environment Variables:
    - `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `JWT_SECRET` (required for the admin panel)
-3. **Demo database (free, one click):** Vercel → Storage → Create → **Upstash Redis** → grant access to the project → redeploy. Appointments persist automatically (no code changes needed — the app detects the KV env vars).
-4. **Production database (optional):** set `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME` to use MySQL instead.
-5. Deploy. Vercel builds the frontend and runs the API from the same project.
+   - `DATABASE_URL` — your **Neon** Postgres connection string (the app auto-creates the `appointments` table on first connect)
+   - `GMAIL_USER` + `GMAIL_APP_PASSWORD` — enables customer emails (see Email Setup)
+3. Deploy. Vercel builds the frontend and runs the API from the same project.
 
-> Storage tiers (automatic): MySQL (if configured) → Upstash KV (if enabled) → local JSON file / memory.
+> Storage tiers (automatic): Neon/Postgres (if `DATABASE_URL` set) → Upstash KV (if enabled) → local JSON file / memory.
+
+## Email Setup (greeting + showcase emails)
+When a customer books an appointment they receive a welcome email featuring the clinic gallery and services; confirm/reject actions and new-booking admin notifications are also emailed.
+
+1. Google Account → Security → **2-Step Verification** → **App Passwords** → create one for "Mail"
+2. Set env vars: `GMAIL_USER` (your Gmail) and `GMAIL_APP_PASSWORD` (the 16-character password)
+3. Test locally: `npm run test:email -- you@example.com`
+4. On Vercel: set the same vars → every booking sends the greeting email automatically
+
+Without SMTP vars the app still works — emails are skipped and logged.
 
 ## Admin Panel
 Visit `/admin` on the deployed site and log in with `ADMIN_EMAIL` / `ADMIN_PASSWORD`.
