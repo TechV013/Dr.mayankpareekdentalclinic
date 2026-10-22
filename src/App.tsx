@@ -550,9 +550,9 @@ function App() {
                 <div className="h-[460px] overflow-hidden rounded-[1.75rem]">
 
                   <img
-                    src="/Dr. Mayank Pareek.png"
-                    alt="Dr. Mayank Pareek - BDS Dental Surgeon"
-                    className="h-full w-full object-cover object-center"
+                    src="/dr.mayankpareek-qualification.jpeg"
+                    alt="Dr. Mayank Pareek - BDS Dental Surgeon at his clinic"
+                    className="h-full w-full object-cover object-[center_35%]"
                   />
 
                 </div>
