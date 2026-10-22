@@ -691,6 +691,8 @@ function App() {
 
                       <div className="absolute inset-0 bg-gradient-to-t from-[#123f41]/70 via-transparent to-transparent" />
 
+                      <img src="/watermark.png" alt="" aria-hidden="true" className="absolute left-3 top-3 z-10 h-9 w-9 rounded-full border border-white/60 bg-white/90 object-contain p-0.5 shadow-md" />
+
                       <div className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-white/20 text-xs font-bold text-white backdrop-blur-md">
                         {String(index + 1).padStart(2, "0")}
                       </div>
@@ -1048,6 +1050,7 @@ function App() {
                     className="h-full w-full object-contain transition duration-500 group-hover:scale-[1.04]"
                     loading="lazy"
                   />
+                  <img src="/watermark.png" alt="" aria-hidden="true" className="absolute left-2 top-2 z-10 h-8 w-8 rounded-full border border-white/60 bg-white/90 object-contain p-0.5 shadow-md" />
                   <span className="absolute inset-0 bg-[#0f6668]/0 transition duration-300 group-hover:bg-[#0f6668]/10" />
                 </button>
               ))}
@@ -1075,12 +1078,15 @@ function App() {
               <X size={22} />
             </button>
 
-            <img
-              src={selectedGalleryImage}
-              alt="Shree Shyam Dental Care clinic preview"
-              onClick={(event) => event.stopPropagation()}
-              className="max-h-[90vh] max-w-[94vw] rounded-xl object-contain shadow-2xl"
-            />
+            <div className="relative">
+              <img
+                src={selectedGalleryImage}
+                alt="Shree Shyam Dental Care clinic preview"
+                onClick={(event) => event.stopPropagation()}
+                className="max-h-[90vh] max-w-[94vw] rounded-xl object-contain shadow-2xl"
+              />
+              <img src="/watermark.png" alt="" aria-hidden="true" className="absolute left-4 top-4 h-14 w-14 rounded-full border border-white/60 bg-white/90 object-contain p-1 shadow-md" />
+            </div>
           </div>
         )}
 
@@ -1129,7 +1135,9 @@ function App() {
                       className="h-72 w-full object-cover object-[center_30%]"
                     />
 
-                    <span className="absolute left-3 top-3 rounded-full bg-[#0f6668] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white backdrop-blur">
+                    <img src="/watermark.png" alt="" aria-hidden="true" className="absolute left-3 top-3 z-10 h-10 w-10 rounded-full border border-white/60 bg-white/90 object-contain p-0.5 shadow-md" />
+
+                    <span className="absolute bottom-3 left-3 rounded-full bg-[#0f6668] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white backdrop-blur">
                       Happy Patient
                     </span>
 
