@@ -16,6 +16,7 @@ import {
   Circle,
   Clock3,
   Crown,
+  Gem,
   HeartHandshake,
   HeartPulse,
   Home,
@@ -60,6 +61,7 @@ const iconMap: Record<string, ElementType> = {
   "messages-square": MessagesSquare,
   home: Home,
   "map-pin": MapPin,
+  gem: Gem,
 };
 
 const fallbackImage =
@@ -78,6 +80,8 @@ const serviceImages = [
   "/service-images/service-10.webp?v=2",
   "/service-images/service-11.webp?v=2",
   "/service-images/service-12.webp?v=2",
+  "/service-images/service-13.webp?v=2",
+  "/service-images/service-14.webp?v=2",
 ];
 
 

@@ -281,6 +281,30 @@ export const siteData = {
       image:
         "https://images.unsplash.com/photo-1667133295315-820bb6481730?auto=format&fit=crop&w=900&q=85",
     },
+
+    {
+      title: "Orthodontics",
+
+      description:
+        "Improves smiles with braces and aligners for straighter, well-aligned teeth.",
+
+      icon: "smile",
+
+      image:
+        "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=900&q=85",
+    },
+
+    {
+      title: "Facial Aesthetics, Dental Implants & Fixed Tooth Replacement",
+
+      description:
+        "Dental implants, fixed tooth replacement and facial aesthetic treatments for a complete smile.",
+
+      icon: "gem",
+
+      image:
+        "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=900&q=85",
+    },
   ],
 
   conditions: [
