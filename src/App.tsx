@@ -20,6 +20,7 @@ import {
   HeartHandshake,
   HeartPulse,
   Home,
+  Lock,
   Mail,
   MapPin,
   Menu,
@@ -334,6 +335,15 @@ function App() {
                   />
                 </a>
 
+                <a
+                  href="/admin"
+                  title="Admin"
+                  aria-label="Admin login"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#d7e5e4] bg-white text-[#315657] transition hover:border-[#0f6668] hover:bg-[#0f6668] hover:text-white"
+                >
+                  <Lock size={15} />
+                </a>
+
               </div>
 
               <button
@@ -382,6 +392,15 @@ function App() {
                   >
                     Book an Appointment
                     <ArrowRight size={16} />
+                  </a>
+
+                  <a
+                    href="/admin"
+                    onClick={closeMobileMenu}
+                    className="mt-1 flex items-center justify-center gap-2 rounded-xl border border-[#d7e5e4] px-5 py-3 text-sm font-bold text-[#315657] transition hover:border-[#0f6668] hover:text-[#0f6668]"
+                  >
+                    <Lock size={14} />
+                    Admin
                   </a>
 
                 </nav>
@@ -1766,7 +1785,7 @@ function App() {
 
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
 
-          <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr_0.8fr]">
+          <div className="grid gap-10 lg:grid-cols-3">
 
             <div>
 
@@ -1833,7 +1852,7 @@ function App() {
                 Quick Links
               </h3>
 
-              <div className="mt-5 grid grid-cols-2 gap-3">
+              <div className="mt-5 flex flex-col gap-3.5">
 
                 {siteData.footer.quickLinks.map((link) => {
 
@@ -1927,7 +1946,7 @@ function App() {
 
           <div className="mt-12 border-t border-white/10 pt-7">
 
-            <div className="flex flex-col gap-3 text-xs text-[#81999a] sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col gap-3 text-center text-xs text-[#81999a] sm:flex-row sm:items-center sm:justify-between sm:text-left">
 
               <p>
                 {siteData.footer.copyright}
