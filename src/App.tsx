@@ -82,12 +82,12 @@ const serviceImages = [
 
 
 const clinicGallery = [
-  "/clinic-gallery/clinic-01.png",
+  "/clinic-gallery/clinic-01.jpeg",
   "/clinic-gallery/clinic-02.png",
   "/clinic-gallery/clinic-03.png",
   "/clinic-gallery/clinic-04.png",
   "/clinic-gallery/clinic-05.png",
-  "/clinic-gallery/clinic-06.png",
+  "/clinic-gallery/clinic-06.jpeg",
   "/clinic-gallery/clinic-07.png",
   "/clinic-gallery/clinic-08.png",
   "/clinic-gallery/clinic-09.png",
@@ -1111,45 +1111,27 @@ function App() {
 
             </div>
 
-            {/* BEFORE / AFTER PATIENT CASES */}
-            <div className="mt-14 grid gap-8 md:grid-cols-2">
+            {/* HAPPY PATIENT CARDS */}
+            <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 
               {siteData.patientCases.map((item) => (
 
                 <article
-                  key={item.name + item.treatment}
+                  key={item.photo}
                   className="rounded-[2rem] border border-[#dce9e7] bg-white p-5 shadow-[0_20px_60px_rgba(20,70,70,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(20,70,70,0.12)] sm:p-6"
                 >
 
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="relative overflow-hidden rounded-2xl">
 
-                    <div className="relative overflow-hidden rounded-2xl">
+                    <img
+                      src={item.photo}
+                      alt={`${item.name} at Shree Shyam Dental Care`}
+                      className="h-72 w-full object-cover object-[center_30%]"
+                    />
 
-                      <img
-                        src={item.before}
-                        alt={`${item.name} before ${item.treatment}`}
-                        className="h-52 w-full object-cover sm:h-64"
-                      />
-
-                      <span className="absolute left-3 top-3 rounded-full bg-[#173235]/80 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white backdrop-blur">
-                        Before
-                      </span>
-
-                    </div>
-
-                    <div className="relative overflow-hidden rounded-2xl">
-
-                      <img
-                        src={item.after}
-                        alt={`${item.name} after ${item.treatment}`}
-                        className="h-52 w-full object-cover sm:h-64"
-                      />
-
-                      <span className="absolute left-3 top-3 rounded-full bg-[#0f6668] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white backdrop-blur">
-                        After
-                      </span>
-
-                    </div>
+                    <span className="absolute left-3 top-3 rounded-full bg-[#0f6668] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white backdrop-blur">
+                      Happy Patient
+                    </span>
 
                   </div>
 

@@ -83,7 +83,7 @@ const appointmentCard = (appointment) => `
 
 const showcaseSection = (siteUrl) => {
   const url = BASE_URL(siteUrl);
-  const gallery = ["clinic-01", "clinic-03", "clinic-05", "clinic-07"];
+  const gallery = ["clinic-01.jpeg", "clinic-03.png", "clinic-05.png", "clinic-07.png"];
 
   return `
   <tr>
@@ -96,7 +96,7 @@ const showcaseSection = (siteUrl) => {
             .map(
               (img, i) => `
           <td width="50%" style="padding:0 4px 8px 0;">
-            <img src="${url}/clinic-gallery/${img}.png" alt="Shree Shyam Dental Care clinic photo ${i + 1}" width="270" style="width:100%;max-width:270px;height:auto;border-radius:10px;display:block;border:1px solid #e5eeee;" />
+            <img src="${url}/clinic-gallery/${img}" alt="Shree Shyam Dental Care clinic photo ${i + 1}" width="270" style="width:100%;max-width:270px;height:auto;border-radius:10px;display:block;border:1px solid #e5eeee;" />
           </td>${i % 2 === 1 ? "</tr><tr>" : ""}`
             )
             .join("")}

@@ -81,22 +81,28 @@ export const siteData = {
 
   patientCases: [
     {
-      before: "/clinic-gallery/clinic-01.png",
-      after: "/clinic-gallery/clinic-03.png",
-      treatment: "Teeth Cleaning & Scaling",
+      photo: "/patient-images/patient-01.webp",
+      treatment: "Dental Treatment",
       rating: 5,
-      name: "Sample Patient",
+      name: "Happy Patient",
       review:
-        "Placeholder review — real patient feedback and before/after photos will appear here.",
+        "Very happy with my treatment at Shree Shyam Dental Care. The doctor was friendly and explained everything clearly.",
     },
     {
-      before: "/clinic-gallery/clinic-05.png",
-      after: "/clinic-gallery/clinic-07.png",
-      treatment: "Dental Fillings",
+      photo: "/patient-images/patient-02.webp",
+      treatment: "Dental Treatment",
       rating: 5,
-      name: "Sample Patient",
+      name: "Happy Patient",
       review:
-        "Placeholder review — real patient feedback and before/after photos will appear here.",
+        "Comfortable experience from start to finish. The clinic is clean and the care was excellent.",
+    },
+    {
+      photo: "/patient-images/patient-03.webp",
+      treatment: "Dental Treatment",
+      rating: 5,
+      name: "Happy Patient",
+      review:
+        "Grateful for the careful treatment and clear guidance. My smile feels great!",
     },
   ],
 
