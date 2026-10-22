@@ -14,7 +14,29 @@ export const siteData = {
       "Dr. Mayank Pareek is a BDS Dental Surgeon with 6+ years of professional experience. He is committed to providing patient-focused dental care in a comfortable and welcoming environment.",
 
     image: "/images/doctor/dr-mayank-pareek.png",
+    instagram: "https://www.instagram.com/shree_shyam_dentalcare",
   },
+
+  team: [
+    {
+      name: "Dr. Ajay Rathod",
+      qualification: "MDS (Orthodontics)",
+      specialization: "Orthodontics & Braces",
+      experience: "5 Years",
+      location: "Ahmedabad",
+      image: "/dr-ajay-rathod.webp",
+      instagram: null,
+    },
+    {
+      name: "Dr. Prashant Pareek",
+      qualification: "MDS (Oral & Maxillofacial Surgery)",
+      specialization: "Oral & Maxillofacial Surgery",
+      experience: "10 Years",
+      location: "Bhilwara",
+      image: "/dr-prashant-pareek.webp",
+      instagram: "https://www.instagram.com/face_guardian",
+    },
+  ],
 
   clinic: {
     name: "Shree Shyam Dental Care",

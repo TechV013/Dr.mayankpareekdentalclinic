@@ -2,7 +2,6 @@ import {
   ArrowLeft,
   ArrowRight,
   Award,
-  Check,
   Clock3,
   GraduationCap,
   MapPin,
@@ -10,6 +9,26 @@ import {
   Stethoscope,
 } from "lucide-react";
 import { siteData } from "../data/siteData";
+
+function InstagramIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  );
+}
 
 const highlights = [
   {
@@ -33,13 +52,6 @@ const highlights = [
     detail: "General dentistry & smile care",
     tint: "bg-[#effaf4] text-[#21643e]",
   },
-];
-
-const experiencePoints = [
-  "6+ years of hands-on clinical dental experience",
-  "BDS from Geetanjali Dental and Research Institute, Udaipur",
-  "Patient-focused consultation with clear treatment guidance",
-  "Comfortable, hygienic, and welcoming care environment",
 ];
 
 export default function DoctorProfilePage() {
@@ -119,8 +131,20 @@ export default function DoctorProfilePage() {
               {siteData.doctor.name}
             </h1>
 
-            <p className="mt-3 text-base font-semibold text-[#0f6668] sm:text-lg">
+            <p className="mt-3 flex flex-wrap items-center gap-3 text-base font-semibold text-[#0f6668] sm:text-lg">
               {siteData.doctor.qualification} &bull; {siteData.doctor.designation}
+
+              {siteData.doctor.instagram && (
+                <a
+                  href={siteData.doctor.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Dr. Mayank Pareek on Instagram"
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#d4e7e4] bg-white text-[#0f6668] shadow-sm transition hover:border-[#0f6668] hover:bg-[#0f6668] hover:text-white"
+                >
+                  <InstagramIcon size={15} />
+                </a>
+              )}
             </p>
 
             <p className="mt-6 max-w-xl text-[15px] leading-7 text-[#698081] sm:text-base sm:leading-8">
@@ -164,83 +188,107 @@ export default function DoctorProfilePage() {
 
       </section>
 
-      {/* ========================= EXPERIENCE DETAILS ========================= */}
+      {/* ========================= OUR TEAM ========================= */}
 
       <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
 
-        <div className="grid gap-8 lg:grid-cols-2">
+        <div className="mx-auto max-w-2xl text-center">
 
-          <div className="rounded-[1.75rem] border border-[#e0ecea] bg-white p-7 shadow-[0_15px_45px_rgba(20,70,70,0.06)] sm:p-9">
+          <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-[#d4e7e4] bg-white px-4 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-[#0f6668] shadow-sm">
 
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#e8f4f2] text-[#0f6668]">
-              <GraduationCap size={22} />
-            </div>
+            <Stethoscope size={13} />
 
-            <h2 className="mt-5 text-2xl font-bold tracking-tight sm:text-[1.7rem]">
-              Qualification
-            </h2>
-
-            <p className="mt-4 text-base font-bold text-[#0f6668]">
-              {siteData.doctor.qualification}
-            </p>
-
-            <p className="mt-1.5 text-sm leading-7 text-[#698081]">
-              {siteData.doctor.institute}
-            </p>
-
-            <div className="mt-6 space-y-3">
-
-              {[
-                "Bachelor of Dental Surgery (BDS)",
-                "Recognized dental education & clinical training",
-                "Committed to continued learning in modern dentistry",
-              ].map((point) => (
-
-                <div key={point} className="flex items-start gap-2.5">
-
-                  <Check size={16} className="mt-0.5 shrink-0 text-[#0f6668]" />
-
-                  <p className="text-sm leading-6 text-[#4e6869]">{point}</p>
-
-                </div>
-
-              ))}
-
-            </div>
+            Our Team
 
           </div>
 
-          <div className="rounded-[1.75rem] border border-[#e0ecea] bg-white p-7 shadow-[0_15px_45px_rgba(20,70,70,0.06)] sm:p-9">
+          <h2 className="mt-5 text-3xl font-bold tracking-[-0.035em] sm:text-4xl">
+            Meet our dental team.
+          </h2>
 
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f4eddf] text-[#9b7932]">
-              <Clock3 size={22} />
-            </div>
+          <p className="mt-4 text-sm leading-7 text-[#698081] sm:text-base">
+            Specialist doctors working together to provide complete dental care at Shree Shyam Dental Care.
+          </p>
 
-            <h2 className="mt-5 text-2xl font-bold tracking-tight sm:text-[1.7rem]">
-              Experience
-            </h2>
+        </div>
 
-            <p className="mt-4 text-base font-bold text-[#9b7932]">
-              {siteData.doctor.experience} of professional practice
-            </p>
+        <div className="mt-12 grid gap-8 sm:grid-cols-2">
 
-            <div className="mt-6 space-y-3">
+          {siteData.team.map((member) => (
 
-              {experiencePoints.map((point) => (
+            <div
+              key={member.name}
+              className="rounded-[1.75rem] border border-[#e0ecea] bg-white p-5 shadow-[0_15px_45px_rgba(20,70,70,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_rgba(20,70,70,0.12)] sm:p-6"
+            >
 
-                <div key={point} className="flex items-start gap-2.5">
+              <div className="h-72 overflow-hidden rounded-[1.25rem] sm:h-80">
 
-                  <Check size={16} className="mt-0.5 shrink-0 text-[#9b7932]" />
+                <img
+                  src={member.image}
+                  alt={`${member.name} at Shree Shyam Dental Care`}
+                  className="h-full w-full object-cover object-[center_25%]"
+                />
 
-                  <p className="text-sm leading-6 text-[#4e6869]">{point}</p>
+              </div>
+
+              <div className="mt-5 flex items-start justify-between gap-3">
+
+                <div>
+
+                  <h3 className="text-xl font-bold tracking-tight text-[#173235]">
+                    {member.name}
+                  </h3>
+
+                  <p className="mt-1.5 text-sm font-semibold text-[#0f6668]">
+                    {member.qualification}
+                  </p>
 
                 </div>
 
-              ))}
+                {member.instagram && (
+
+                  <a
+                    href={member.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${member.name} on Instagram`}
+                    className="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#d4e7e4] bg-white text-[#0f6668] shadow-sm transition hover:border-[#0f6668] hover:bg-[#0f6668] hover:text-white"
+                  >
+                    <InstagramIcon size={16} />
+                  </a>
+
+                )}
+
+              </div>
+
+              <div className="mt-4 flex flex-wrap items-center gap-2">
+
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#e8f4f2] px-3 py-1.5 text-xs font-bold text-[#0f6668]">
+
+                  <Stethoscope size={13} />
+                  {member.specialization}
+
+                </span>
+
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#f4eddf] px-3 py-1.5 text-xs font-bold text-[#9b7932]">
+
+                  <Clock3 size={13} />
+                  Exp. {member.experience}
+
+                </span>
+
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#f0f4f4] px-3 py-1.5 text-xs font-bold text-[#4e6869]">
+
+                  <MapPin size={13} />
+                  {member.location}
+
+                </span>
+
+              </div>
 
             </div>
 
-          </div>
+          ))}
 
         </div>
 
