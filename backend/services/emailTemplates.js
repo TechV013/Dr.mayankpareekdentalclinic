@@ -43,8 +43,8 @@ const shell = (inner, siteUrl) => {
               <p style="margin:0 0 6px;color:#ffffff;font-weight:bold;">Shree Shyam Dental Care</p>
               <p style="margin:0;">Opposite Shreemati Complex, Near Moti Bavji Chauraha, Bhilwara, Rajasthan</p>
               <p style="margin:0;">
-                <a href="tel:+917691082871" style="color:#c39a43;text-decoration:none;">&#9742; +91 76910 82871</a>
-                &nbsp;&bull;&nbsp; Mon&ndash;Sat, 10:00 AM &ndash; 5:00 PM
+                <a href="tel:+919257619691" style="color:#c39a43;text-decoration:none;">&#9742; +91 92576 19691</a>
+                &nbsp;&bull;&nbsp; Mon&ndash;Sat, 10:00 AM &ndash; 7:00 PM &nbsp;|&nbsp; Sun, 11:00 AM &ndash; 2:00 PM
               </p>
               <p style="margin:8px 0 0;">
                 <a href="${url}" style="color:#8fd0cd;text-decoration:none;">Visit our website</a>
@@ -216,7 +216,7 @@ export const rejectionTemplate = ({ name, appointment, siteUrl }) =>
   </tr>
   <tr>
     <td style="padding:20px 28px;">
-      <a href="tel:+917691082871" style="display:inline-block;background:#0f6668;color:#ffffff;text-decoration:none;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:bold;">Call: +91 76910 82871</a>
+      <a href="tel:+919257619691" style="display:inline-block;background:#0f6668;color:#ffffff;text-decoration:none;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:bold;">Call: +91 92576 19691</a>
     </td>
   </tr>`,
     siteUrl

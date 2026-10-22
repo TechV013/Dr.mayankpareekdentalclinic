@@ -740,91 +740,6 @@ function App() {
 
         </section>
 
-        {/* ========================= CONDITIONS ========================= */}
-
-        <section className="bg-white py-24 sm:py-28">
-
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-            <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-
-              <div>
-
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#d4e7e4] bg-[#f3f9f8] px-4 py-2 text-[10px] font-bold uppercase tracking-[0.15em] text-[#0f6668]">
-
-                  <HeartPulse size={14} />
-
-                  Dental Concerns
-
-                </div>
-
-                <h2 className="mt-5 text-4xl font-bold tracking-[-0.035em] text-[#173235] sm:text-5xl">
-
-                  Care for common{" "}
-
-                  <span className="text-[#0f6668]">
-                    dental concerns.
-                  </span>
-
-                </h2>
-
-                <p className="mt-6 max-w-xl text-base leading-8 text-[#718687]">
-                  Dental concerns can have different causes. A professional
-                  examination helps identify the issue and determine the
-                  appropriate treatment approach.
-                </p>
-
-                <a
-                  href="#appointment"
-                  className="mt-7 inline-flex items-center gap-2 rounded-xl border border-[#cfe1df] bg-white px-6 py-3.5 text-sm font-bold text-[#315657] shadow-sm transition hover:-translate-y-1 hover:border-[#0f6668] hover:text-[#0f6668]"
-                >
-                  Talk to the Dentist
-                  <ArrowRight size={16} />
-                </a>
-
-              </div>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-
-                {siteData.conditions.map((condition, index) => (
-
-                  <div
-                    key={condition.title}
-                    className="group rounded-2xl border border-[#e0ecea] bg-[#fbfdfd] p-5 transition duration-300 hover:-translate-y-1 hover:border-[#bfdedb] hover:bg-[#f4faf9] hover:shadow-lg"
-                  >
-
-                    <div className="flex items-start gap-4">
-
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#e7f3f1] text-sm font-bold text-[#0f6668]">
-                        {String(index + 1).padStart(2, "0")}
-                      </div>
-
-                      <div>
-
-                        <h3 className="font-bold text-[#294d4e]">
-                          {condition.title}
-                        </h3>
-
-                        <p className="mt-2 text-sm leading-6 text-[#758889]">
-                          {condition.description}
-                        </p>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                ))}
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
         {/* ========================= CTA ========================= */}
 
         <section className="relative overflow-hidden bg-[#173235] py-20 sm:py-24">
@@ -1332,7 +1247,7 @@ function App() {
               {/* WHATSAPP */}
 
               <a
-                href={`https://wa.me/91${siteData.clinic.whatsapp}`}
+                href={`https://wa.me/91${siteData.clinic.whatsapp}?text=Hello%20sir%2C%20My%20concern%20is%20`}
                 target="_blank"
                 rel="noreferrer"
                 className="mt-4 flex items-center gap-4 rounded-2xl border border-[#dcebdc] bg-[#f5fbf6] p-5 transition hover:-translate-y-1 hover:shadow-lg"
@@ -1380,6 +1295,10 @@ function App() {
 
                   <p className="text-sm text-[#718687]">
                     {siteData.clinic.timings.hours}
+                  </p>
+
+                  <p className="text-sm text-[#718687]">
+                    {siteData.clinic.timings.sunday}
                   </p>
 
                 </div>
@@ -1568,6 +1487,10 @@ function App() {
 
                       <option value="5:00 PM">
                         5:00 PM
+                      </option>
+
+                      <option value="6:00 PM">
+                        6:00 PM
                       </option>
 
                     </select>
@@ -1815,7 +1738,7 @@ function App() {
                   </a>
 
                   <a
-                    href={`https://wa.me/91${siteData.clinic.whatsapp}`}
+                    href={`https://wa.me/91${siteData.clinic.whatsapp}?text=Hello%20sir%2C%20My%20concern%20is%20`}
                     target="_blank"
                     rel="noreferrer"
                     className="group flex items-center gap-4 rounded-2xl border border-[#dce9e7] bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
@@ -1993,7 +1916,7 @@ function App() {
                 </a>
 
                 <a
-                  href={`https://wa.me/91${siteData.clinic.whatsapp}`}
+                  href={`https://wa.me/91${siteData.clinic.whatsapp}?text=Hello%20sir%2C%20My%20concern%20is%20`}
                   target="_blank"
                   rel="noreferrer"
                   className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-[#b8d1cf] transition hover:bg-[#0f6668] hover:text-white"
@@ -2102,6 +2025,8 @@ function App() {
                     {siteData.clinic.timings.days}
                     <br />
                     {siteData.clinic.timings.hours}
+                    <br />
+                    {siteData.clinic.timings.sunday}
                   </p>
 
                 </div>
@@ -2147,7 +2072,7 @@ function App() {
         </a>
 
         <a
-          href={`https://wa.me/91${siteData.clinic.whatsapp}`}
+          href={`https://wa.me/91${siteData.clinic.whatsapp}?text=Hello%20sir%2C%20My%20concern%20is%20`}
           target="_blank"
           rel="noreferrer"
           className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#edf8ef] px-3 py-3 text-xs font-bold text-[#21884c]"

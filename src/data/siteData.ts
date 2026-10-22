@@ -47,14 +47,15 @@ export const siteData = {
 
     address: "Opposite Shreemati Complex, Near Moti Bavji Chauraha, Bhilwara",
 
-    phone: "7691082871",
-    whatsapp: "7691082871",
+    phone: "9257619691",
+    whatsapp: "9982489691",
 
     email: "",
 
     timings: {
       days: "Monday – Saturday",
-      hours: "10:00 AM – 5:00 PM",
+      hours: "10:00 AM – 7:00 PM",
+      sunday: "Sunday: 11:00 AM – 2:00 PM",
     },
 
     mapUrl: "",
@@ -445,7 +446,7 @@ export const siteData = {
       question: "What are the clinic timings?",
 
       answer:
-        "The clinic is currently available Monday to Saturday, from 10:00 AM to 5:00 PM.",
+        "The clinic is open Monday to Saturday, from 10:00 AM to 7:00 PM, and on Sunday from 11:00 AM to 2:00 PM.",
     },
 
     {
@@ -507,7 +508,7 @@ export const siteData = {
 
     timingLabel: "Clinic Hours",
 
-    timing: "Monday – Saturday | 10:00 AM – 5:00 PM",
+    timing: "Mon – Sat | 10:00 AM – 7:00 PM | Sun 11:00 AM – 2:00 PM",
   },
 
   footer: {
