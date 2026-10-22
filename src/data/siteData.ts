@@ -79,6 +79,27 @@ export const siteData = {
     buttonText: "Book Consultation",
   },
 
+  patientCases: [
+    {
+      before: "/clinic-gallery/clinic-01.png",
+      after: "/clinic-gallery/clinic-03.png",
+      treatment: "Teeth Cleaning & Scaling",
+      rating: 5,
+      name: "Sample Patient",
+      review:
+        "Placeholder review — real patient feedback and before/after photos will appear here.",
+    },
+    {
+      before: "/clinic-gallery/clinic-05.png",
+      after: "/clinic-gallery/clinic-07.png",
+      treatment: "Dental Fillings",
+      rating: 5,
+      name: "Sample Patient",
+      review:
+        "Placeholder review — real patient feedback and before/after photos will appear here.",
+    },
+  ],
+
   services: [
     {
       title: "Dental Consultation & Checkup",
