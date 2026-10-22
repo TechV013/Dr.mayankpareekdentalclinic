@@ -510,16 +510,16 @@ function App() {
               >
 
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#e8f4f2] text-[#0f6668]">
-                  <Award size={19} />
+                  <Users size={19} />
                 </div>
 
                 <div>
                   <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#8a9b9c]">
-                    Dr. Mayank Pareek
+                    Shree Shyam Dental Care
                   </p>
 
                   <p className="mt-0.5 flex items-center gap-1.5 text-xs font-bold text-[#294d4e] sm:text-sm">
-                    Qualification &amp; Experience
+                    Our Expert Team
                     <ArrowRight
                       size={14}
                       className="transition-transform group-hover:translate-x-0.5"
