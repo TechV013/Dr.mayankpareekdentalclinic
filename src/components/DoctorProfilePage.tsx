@@ -95,9 +95,9 @@ export default function DoctorProfilePage() {
               <div className="h-[380px] overflow-hidden rounded-[1.5rem] sm:h-[440px]">
 
                 <img
-                  src="/Dr. Mayank Pareek.png"
-                  alt="Dr. Mayank Pareek - BDS Dental Surgeon"
-                  className="h-full w-full object-cover object-center"
+                  src="/dr.mayankpareek-qualification.jpeg"
+                  alt="Dr. Mayank Pareek - BDS Dental Surgeon at his clinic"
+                  className="h-full w-full object-cover object-[center_35%]"
                 />
 
               </div>
