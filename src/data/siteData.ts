@@ -45,7 +45,7 @@ export const siteData = {
     state: "Rajasthan",
     country: "India",
 
-    address: "Moti Bavji Choraha, Bhilwara",
+    address: "Opposite Shreemati Complex, Near Moti Bavji Chauraha, Bhilwara",
 
     phone: "7691082871",
     whatsapp: "7691082871",
@@ -403,7 +403,7 @@ export const siteData = {
       title: "Convenient Location",
 
       description:
-        "Conveniently located at Moti Bavji Choraha, Bhilwara.",
+        "Conveniently located at Opposite Shreemati Complex, Near Moti Bavji Chauraha, Bhilwara.",
 
       icon: "map-pin",
     },
@@ -438,7 +438,7 @@ export const siteData = {
       question: "Where is Shree Shyam Dental Care located?",
 
       answer:
-        "Shree Shyam Dental Care is located at Moti Bavji Choraha, Bhilwara, Rajasthan.",
+        "Shree Shyam Dental Care is located at Opposite Shreemati Complex, Near Moti Bavji Chauraha, Bhilwara, Rajasthan.",
     },
 
     {
@@ -497,7 +497,7 @@ export const siteData = {
 
     addressLabel: "Clinic Address",
 
-    address: "Moti Bavji Choraha, Bhilwara, Rajasthan",
+    address: "Opposite Shreemati Complex, Near Moti Bavji Chauraha, Bhilwara, Rajasthan",
 
     city: "Bhilwara, Rajasthan",
 

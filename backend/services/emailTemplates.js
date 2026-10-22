@@ -41,7 +41,7 @@ const shell = (inner, siteUrl) => {
           <tr>
             <td style="background:#173235;padding:22px 28px;color:#b7c9c9;font-size:12px;line-height:1.7;">
               <p style="margin:0 0 6px;color:#ffffff;font-weight:bold;">Shree Shyam Dental Care</p>
-              <p style="margin:0;">Moti Bavji Choraha, Bhilwara, Rajasthan</p>
+              <p style="margin:0;">Opposite Shreemati Complex, Near Moti Bavji Chauraha, Bhilwara, Rajasthan</p>
               <p style="margin:0;">
                 <a href="tel:+917691082871" style="color:#c39a43;text-decoration:none;">&#9742; +91 76910 82871</a>
                 &nbsp;&bull;&nbsp; Mon&ndash;Sat, 10:00 AM &ndash; 5:00 PM

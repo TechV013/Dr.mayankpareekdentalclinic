@@ -305,7 +305,7 @@ export default function DoctorProfilePage() {
           </h2>
 
           <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-[#cfe9e7]">
-            Personalized dental care at Shree Shyam Dental Care, Moti Bavji Choraha, Bhilwara.
+            Personalized dental care at Shree Shyam Dental Care, Opposite Shreemati Complex, Near Moti Bavji Chauraha, Bhilwara.
           </p>
 
           <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
