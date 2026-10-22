@@ -104,6 +104,14 @@ export const siteData = {
       review:
         "Grateful for the careful treatment and clear guidance. My smile feels great!",
     },
+    {
+      photo: "/patient-images/patient-04.webp",
+      treatment: "Dental Treatment",
+      rating: 5,
+      name: "Happy Patient",
+      review:
+        "Smooth, comfortable treatment and a friendly team. Happy with the results!",
+    },
   ],
 
   services: [
