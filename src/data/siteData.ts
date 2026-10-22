@@ -82,35 +82,35 @@ export const siteData = {
   patientCases: [
     {
       photo: "/patient-images/patient-01.webp",
-      treatment: "Dental Treatment",
+      treatment: "General Dentistry",
       rating: 5,
-      name: "Happy Patient",
+      name: "Mona Khinchi",
       review:
-        "Very happy with my treatment at Shree Shyam Dental Care. The doctor was friendly and explained everything clearly.",
+        "Best dental care facility available in Bhilwara. Clean and hygienic dental hospital.",
     },
     {
       photo: "/patient-images/patient-02.webp",
       treatment: "Dental Treatment",
       rating: 5,
-      name: "Happy Patient",
+      name: "Shiv Sharma",
       review:
-        "Comfortable experience from start to finish. The clinic is clean and the care was excellent.",
+        "Best Dentist in Bhilwara. Good behaviour, soft hand, and absolutely fine in dental practice. Thank you Dr. Mayank sir.",
     },
     {
       photo: "/patient-images/patient-03.webp",
       treatment: "Dental Treatment",
       rating: 5,
-      name: "Happy Patient",
+      name: "Dr. RamNarayan Tiwari",
       review:
-        "Grateful for the careful treatment and clear guidance. My smile feels great!",
+        "A good clinic atmosphere, helpful staff and highly qualified and experienced doctor with very soft talk. Highly recommend for dental treatment, please visit once.",
     },
     {
       photo: "/patient-images/patient-04.webp",
       treatment: "Dental Treatment",
       rating: 5,
-      name: "Happy Patient",
+      name: "Vishal Pareek",
       review:
-        "Smooth, comfortable treatment and a friendly team. Happy with the results!",
+        "Had a great experience here. The doctor was very professional, explained everything clearly, and the treatment was completely painless. The clinic is clean and the staff is very friendly. Highly recommended!",
     },
   ],
 
