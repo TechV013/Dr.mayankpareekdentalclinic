@@ -84,13 +84,13 @@ const serviceImages = [
 const clinicGallery = [
   "/clinic-gallery/clinic-01.jpeg",
   "/clinic-gallery/clinic-02.png",
-  "/clinic-gallery/clinic-03.png",
-  "/clinic-gallery/clinic-04.png",
+  "/clinic-gallery/clinic-03.jpeg",
+  "/clinic-gallery/clinic-04.jpeg",
   "/clinic-gallery/clinic-05.png",
   "/clinic-gallery/clinic-06.jpeg",
   "/clinic-gallery/clinic-07.png",
-  "/clinic-gallery/clinic-08.png",
-  "/clinic-gallery/clinic-09.png",
+  "/clinic-gallery/clinic-08.jpeg",
+  "/clinic-gallery/clinic-09.jpeg",
   "/clinic-gallery/clinic-10.png",
 ];
 

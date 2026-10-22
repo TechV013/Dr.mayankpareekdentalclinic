@@ -83,7 +83,7 @@ const appointmentCard = (appointment) => `
 
 const showcaseSection = (siteUrl) => {
   const url = BASE_URL(siteUrl);
-  const gallery = ["clinic-01.jpeg", "clinic-03.png", "clinic-05.png", "clinic-07.png"];
+  const gallery = ["clinic-01.jpeg", "clinic-03.jpeg", "clinic-05.png", "clinic-07.png"];
 
   return `
   <tr>
