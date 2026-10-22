@@ -1692,121 +1692,7 @@ function App() {
 
           <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-            <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-
-              <div>
-
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#cce3e0] bg-white px-4 py-2 text-[10px] font-bold uppercase tracking-[0.15em] text-[#0f6668] shadow-sm">
-
-                  <MapPin size={14} />
-
-                  Contact Us
-
-                </div>
-
-                <h2 className="mt-5 text-4xl font-bold tracking-[-0.035em] text-[#173235] sm:text-5xl">
-                  {siteData.contact.title}
-                </h2>
-
-                <p className="mt-6 text-base leading-8 text-[#718687]">
-                  {siteData.contact.description}
-                </p>
-
-                <div className="mt-8 space-y-4">
-
-                  <a
-                    href={`tel:${siteData.clinic.phone}`}
-                    className="group flex items-center gap-4 rounded-2xl border border-[#dce9e7] bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-                  >
-
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#e7f3f1] text-[#0f6668]">
-                      <Phone size={20} />
-                    </div>
-
-                    <div>
-
-                      <p className="text-xs font-semibold uppercase tracking-wider text-[#879798]">
-                        {siteData.contact.phoneLabel}
-                      </p>
-
-                      <p className="mt-1 font-bold text-[#294d4e]">
-                        {siteData.clinic.phone}
-                      </p>
-
-                    </div>
-
-                  </a>
-
-                  <a
-                    href={`https://wa.me/91${siteData.clinic.whatsapp}?text=Hello%20sir%2C%20My%20concern%20is%20`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="group flex items-center gap-4 rounded-2xl border border-[#dce9e7] bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-                  >
-
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#e8f5eb] text-[#1b8c4b]">
-                      <MessagesSquare size={20} />
-                    </div>
-
-                    <div>
-
-                      <p className="text-xs font-semibold uppercase tracking-wider text-[#879798]">
-                        {siteData.contact.whatsappLabel}
-                      </p>
-
-                      <p className="mt-1 font-bold text-[#294d4e]">
-                        Chat on WhatsApp
-                      </p>
-
-                    </div>
-
-                  </a>
-
-                  <div className="flex items-center gap-4 rounded-2xl border border-[#dce9e7] bg-white p-5 shadow-sm">
-
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#f3eddf] text-[#9b7932]">
-                      <MapPin size={20} />
-                    </div>
-
-                    <div>
-
-                      <p className="text-xs font-semibold uppercase tracking-wider text-[#879798]">
-                        {siteData.contact.addressLabel}
-                      </p>
-
-                      <p className="mt-1 font-bold text-[#294d4e]">
-                        {siteData.contact.address}
-                      </p>
-
-                    </div>
-
-                  </div>
-
-                  <div className="flex items-center gap-4 rounded-2xl border border-[#dce9e7] bg-white p-5 shadow-sm">
-
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#e7f3f1] text-[#0f6668]">
-                      <Clock3 size={20} />
-                    </div>
-
-                    <div>
-
-                      <p className="text-xs font-semibold uppercase tracking-wider text-[#879798]">
-                        {siteData.contact.timingLabel}
-                      </p>
-
-                      <p className="mt-1 font-bold text-[#294d4e]">
-                        {siteData.contact.timing}
-                      </p>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div className="overflow-hidden rounded-[2rem] border border-[#d8e8e6] bg-white shadow-[0_25px_70px_rgba(20,70,70,0.1)]">
+            <div className="overflow-hidden rounded-[2rem] border border-[#d8e8e6] bg-white shadow-[0_25px_70px_rgba(20,70,70,0.1)]">
 
                 <div className="relative h-[500px] w-full sm:h-[560px]">
 
@@ -1863,8 +1749,6 @@ function App() {
                 </div>
 
               </div>
-
-            </div>
 
           </div>
 
