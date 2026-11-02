@@ -46,7 +46,7 @@ app.use("/api/appointments", appointmentRoutes);
 
 // JSON fallback for any other /api/* path so the frontend never receives
 // an HTML error page (which breaks client-side JSON parsing).
-app.all("/api/*", (req, res) => {
+app.use("/api", (req, res) => {
   res.status(404).json({
     success: false,
     message: `API route not found: ${req.method} ${req.originalUrl}`,
