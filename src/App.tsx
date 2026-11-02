@@ -39,7 +39,7 @@ import {
 } from "lucide-react";
 
 import { siteData } from "./data/siteData";
-import { apiFetch, readApiResponse } from "./api";
+import { ApiRequestError, apiFetch, readApiResponse } from "./api";
 import AdminLogin from "./components/AdminLogin";
 import AdminDashboard from "./components/AdminDashboard";
 import DoctorProfilePage from "./components/DoctorProfilePage";
@@ -171,25 +171,24 @@ function App() {
     setAppointmentMessage("");
     setAppointmentId(null);
 
-    try {
-      const response = await apiFetch(
-        "/api/appointments",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            fullName: appointmentData.fullName.trim(),
-            phone: appointmentData.phone.trim(),
-            email: appointmentData.email.trim(),
-            appointmentDate: appointmentData.date,
-            appointmentTime: convertTimeTo24Hour(appointmentData.time),
-            dentalConcern: appointmentData.concern,
-            message: appointmentData.message.trim(),
-          }),
-        }
-      );
+    const payload = {
+      fullName: appointmentData.fullName.trim(),
+      phone: appointmentData.phone.trim(),
+      email: appointmentData.email.trim(),
+      appointmentDate: appointmentData.date,
+      appointmentTime: convertTimeTo24Hour(appointmentData.time),
+      dentalConcern: appointmentData.concern,
+      message: appointmentData.message.trim(),
+    };
+
+    const postOnce = async () => {
+      const response = await apiFetch("/api/appointments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
       const data = await readApiResponse<{
         message?: string;
@@ -197,9 +196,32 @@ function App() {
       }>(response);
 
       if (!response.ok) {
-        throw new Error(
+        const err = new Error(
           data.message || "Unable to submit appointment request."
-        );
+        ) as Error & { status?: number };
+        err.status = response.status;
+        throw err;
+      }
+
+      return data;
+    };
+
+    try {
+      // Retry once on transient/edge failures (non-JSON response, 405, 5xx).
+      let data: Awaited<ReturnType<typeof postOnce>>;
+      try {
+        data = await postOnce();
+      } catch (error) {
+        const status = (error as { status?: number }).status;
+        const transient =
+          error instanceof ApiRequestError
+            ? error.kind === "invalid-response" || error.kind === "connection"
+            : status === 405 || (status !== undefined && status >= 500);
+
+        if (!transient) throw error;
+
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+        data = await postOnce();
       }
 
       setAppointmentStatus("success");
@@ -223,9 +245,11 @@ function App() {
 
       setAppointmentStatus("error");
       setAppointmentMessage(
-        error instanceof Error
-          ? error.message
-          : "Unable to submit appointment request. Please try again."
+        error instanceof ApiRequestError
+          ? "We couldn't reach the clinic server. Please refresh the page (Ctrl+Shift+R) and try again, or call us at 92576 19691."
+          : error instanceof Error
+            ? error.message
+            : "Unable to submit appointment request. Please try again."
       );
     }
   };

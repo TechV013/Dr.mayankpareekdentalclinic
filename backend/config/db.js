@@ -320,8 +320,15 @@ const ensurePg = async () => {
       const sslMode = (pgUrl.match(/sslmode=([^&]+)/) || [])[1];
       const ssl = sslMode === "disable" ? false : { rejectUnauthorized: false };
 
+      // Keep legacy pg SSL semantics (sslmode=require etc. treated as the old
+      // behavior) and silence the pg-connection-string deprecation warning that
+      // otherwise floods every request's stderr.
+      const connectionString = pgUrl.includes("uselibpqcompat=")
+        ? pgUrl
+        : `${pgUrl}${pgUrl.includes("?") ? "&" : "?"}uselibpqcompat=true`;
+
       const pool = new Pool({
-        connectionString: pgUrl,
+        connectionString,
         ssl,
         max: 5,
         connectionTimeoutMillis: 15000,

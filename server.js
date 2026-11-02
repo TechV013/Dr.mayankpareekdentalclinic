@@ -44,6 +44,15 @@ app.get("/api/test-db", async (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/appointments", appointmentRoutes);
 
+// JSON fallback for any other /api/* path so the frontend never receives
+// an HTML error page (which breaks client-side JSON parsing).
+app.all("/api/*", (req, res) => {
+  res.status(404).json({
+    success: false,
+    message: `API route not found: ${req.method} ${req.originalUrl}`,
+  });
+});
+
 // Serve frontend static files in production (self-hosted / local)
 const distPath = path.join(__dirname, "dist");
 app.use(express.static(distPath));

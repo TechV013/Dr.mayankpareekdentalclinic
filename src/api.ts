@@ -28,7 +28,7 @@ export const apiFetch = async (
 ): Promise<Response> => {
   assertApiUrlConfigured();
 
-  const normalizedPath = `/${path.replace(/^\/+/, "")}`;
+  const normalizedPath = `/${path.replace(/^\/+/, "").replace(/\/+$/, "")}`;
 
   try {
     return await fetch(`${API_URL}${normalizedPath}`, options);
@@ -55,8 +55,10 @@ export const readApiResponse = async <T>(
       ? error.message
       : String(error);
 
+    const endpoint = response.url || "unknown endpoint";
+
     throw new ApiRequestError(
-      `The backend returned an invalid JSON response (HTTP ${response.status}). Original error: ${originalMessage}`,
+      `The backend returned an invalid JSON response (HTTP ${response.status}) for ${endpoint}. Original error: ${originalMessage}`,
       "invalid-response",
       error
     );
