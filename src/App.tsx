@@ -1,4 +1,5 @@
 import {
+  useEffect,
   useState,
   type ElementType,
   type FormEvent,
@@ -128,6 +129,45 @@ function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [selectedGalleryImage, setSelectedGalleryImage] = useState<string | null>(null);
+
+  // Per-route SEO meta (non-visual): keeps /doctor and /admin from sharing the home snippet.
+  useEffect(() => {
+    const path = window.location.pathname;
+    const setMeta = (name: string, content: string) => {
+      let el = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement | null;
+      if (!el) {
+        el = document.createElement("meta");
+        el.setAttribute("name", name);
+        document.head.appendChild(el);
+      }
+      el.setAttribute("content", content);
+    };
+    const setCanonical = (href: string) => {
+      let el = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+      if (!el) {
+        el = document.createElement("link");
+        el.setAttribute("rel", "canonical");
+        document.head.appendChild(el);
+      }
+      el.setAttribute("href", href);
+    };
+
+    if (path === "/doctor") {
+      document.title = "Dr. Mayank Pareek | Our Dental Team | Shree Shyam Dental Care";
+      setMeta("description", "Meet Dr. Mayank Pareek (BDS) and the dental team at Shree Shyam Dental Care, Bhilwara — orthodontics, oral surgery and general dentistry.");
+      setMeta("robots", "index,follow,max-image-preview:large");
+      setCanonical("https://shreeshyamdentalcare.in/doctor");
+    } else if (path === "/admin") {
+      document.title = "Admin | Shree Shyam Dental Care";
+      setMeta("robots", "noindex,nofollow");
+      setCanonical("https://shreeshyamdentalcare.in/admin");
+    } else {
+      document.title = "Dr. Mayank Pareek | Dentist in Bhilwara | Shree Shyam Dental Care";
+      setMeta("description", "Shree Shyam Dental Care in Bhilwara offers root canal, braces, implants, teeth cleaning and smile design by Dr. Mayank Pareek (BDS). Call 92576 19691.");
+      setMeta("robots", "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1");
+      setCanonical("https://shreeshyamdentalcare.in/");
+    }
+  }, []);
 
   const [appointmentData, setAppointmentData] = useState({
     fullName: "",
